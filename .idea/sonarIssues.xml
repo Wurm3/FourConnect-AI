@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="issues">
+    <option name="index">
+      <map>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaClient.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Generator/VisualizationGenerator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Resource/Visualization/VisitState.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Resource/Visualization/VisitStateSubClasses/Aggregation.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Resource/Visualization/VisitStateSubClasses/Params.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Resource/Visualization/VisitStateSubClasses/ParamsSubClasses/CategoryAxes.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Resource/Visualization/VisitStateSubClasses/ParamsSubClasses/Style.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Resource/Visualization/VisitStateSubClasses/ParamsSubClasses/Title.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Resource/Visualization/VisitStateSubClasses/ParamsSubClasses/ValueAxes.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/config/aegaeon/aegaeon_config.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/config/pandora/pandora_config.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/dashboards/pandora.erb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/jobs/scheduler.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/lib/grafana_service/grafana_alerts.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/lib/jenkins/jenkins_list.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/lib/kibana/kibana_dashboard.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/lib/modules/scheduler_initializer.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/lib/modules/time_formatter.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/lib/pingdom_service/pingdom.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/bullettextlist/bullettextlist.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/clock/clock.coffee">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/clock/clock.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/multipletextalert/multipletextalert.coffee">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/multipletextalert/multipletextalert.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/multipletextalert/multipletextalert.scss">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/multistatenumber/multistatenumber.coffee">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/multistatenumber/multistatenumber.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt-dashboard/widgets/multistatenumber/multistatenumber.scss">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/gamecore/VierGewinnt.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/gamecore/VierGewinntCore.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/gui/Main.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/montecarlo/ArtificialIntelligenceInterface.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/montecarlo/MonteCarlo.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/montecarlo/Node.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
