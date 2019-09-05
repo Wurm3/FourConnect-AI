@@ -1,1 +1,2 @@
-Four Connect with a not finished monte carlo alogrithm as AI.
+Four Connect with a finished monte carlo alogrithm as AI.
+Unfinished NeuralNetwork.
