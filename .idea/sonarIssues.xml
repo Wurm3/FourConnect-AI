@@ -3,6 +3,31 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/Dummy.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/.gitignore">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/common/Stage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/dynatrace/DynatraceAgentGroupMappingModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/KibanaModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaClient.java">
           <value>
             <set />
@@ -44,6 +69,36 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/service/modules/kibana/client/KibanaRessource/Resource/Visualization/VisitStateSubClasses/ParamsSubClasses/ValueAxes.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/ui/ConfigurationEditor.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/ui/blueprint/BlueprintPanel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/ui/haproxy/HAProxyPanel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../blueprinter/blueprinter/src/main/java/net/iwinsvc/blueprinter/ui/kibana/KibanaPanel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dl4j-examples/dl4j-examples/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dl4j-examples/dl4j-examples/src/main/java/org/deeplearning4j/examples/tictactoe/TicTacToePlayer.java">
           <value>
             <set />
           </value>
@@ -143,12 +198,207 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/Jenkinsfile_deploy.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/README.md">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/aquarium/aquarium_config.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/aquarium/queries/expose_response_time_query.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/aquarium/queries/kibana_blueprint_response_time_query.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/aquarium/queries/public_gateway_proxy_query.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/aquarium/queries/public_gateway_proxy_response_query.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/aquarium/queries/sel_resonse_time_query.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/aquarium/queries/sel_response_time_query.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/auth.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/auth_new.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/config_format.md">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/hyperion/hyperion_config.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/hyperion/queries/contact_request_query.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/pan/pan_config.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/config/pandora/pandora_config.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/dashboards/hyperion.erb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/dashboards/pandora.erb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/decrypted_auth.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/jobs/scheduler.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/auth/pleasant_decrypter.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/aws/amazon_request.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/grafana_service/grafana_alerts.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/grafana_service/grafana_connector.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/grafana_service/grafana_request_widgets.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/grafana_service/grafana_widgets.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/kibana/kibana_msearch.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/modules/imelk_elasticsearch_connector.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/modules/immocloud_connector.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/modules/kibana_get_dashboard.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/modules/rest_api_get_connector.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/modules/scheduler_initializer.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/modules/scheduler_refresher.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/modules/time_formatter.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../immowelt_dashboard/lib/pingdom_service/pingdom.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/feedforward/FeedForwardNetwork.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/gamecore/VierGewinnt.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/gamecore/VierGewinntCore.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/gamecore/VierGewinntInterface.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/gui/ArtificalInteligence.java">
           <value>
             <set />
           </value>
@@ -168,7 +418,52 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/montecarlo/NeuralNetworkSocket.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/montecarlo/Node.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/python/socket.py">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../temp_smashing/immowelt_dashboard/jobs/scheduler.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../temp_smashing/immowelt_dashboard/lib/grafana_service/grafana_public_gateway_json_editor.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../temp_smashing/immowelt_dashboard/lib/grafana_service/grafana_request_widgets.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../temp_smashing/immowelt_dashboard/lib/grafana_service/grafana_widgets.rb">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../uni/andi-philipp-praktikum/BAI-6/ITSP2/package.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../uni/andi-philipp-praktikum/BAI-6/ITSP2/src/server/DB/dbconfig.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/a.dummy">
           <value>
             <set />
           </value>

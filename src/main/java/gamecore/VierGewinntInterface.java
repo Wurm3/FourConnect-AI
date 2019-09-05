@@ -1,6 +1,6 @@
 package gamecore;
 
-public interface VierGewinntCore
+public interface VierGewinntInterface
 {
     int getPlayer();
     void nextPlayer();

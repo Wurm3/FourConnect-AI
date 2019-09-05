@@ -1,7 +1,7 @@
 package gamecore;
 
 
-public class VierGewinnt implements VierGewinntCore {
+public class VierGewinnt implements VierGewinntInterface {
     private int player;
     private int[][] board;
 

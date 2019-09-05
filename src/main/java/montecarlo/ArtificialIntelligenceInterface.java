@@ -1,8 +1,8 @@
 package montecarlo;
 
-import gamecore.VierGewinntCore;
+import gamecore.VierGewinntInterface;
 
 public interface ArtificialIntelligenceInterface {
     public int[] makeNextMove();
-    public void refreshBoard(VierGewinntCore vierGewinnt);
+    public void refreshBoard(VierGewinntInterface vierGewinnt);
 }

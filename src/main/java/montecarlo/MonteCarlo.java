@@ -1,19 +1,19 @@
 package montecarlo;
 
 import gamecore.VierGewinnt;
-import gamecore.VierGewinntCore;
+import gamecore.VierGewinntInterface;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MonteCarlo implements ArtificialIntelligenceInterface{
     private final double bias = 0.3;
-    private VierGewinntCore vierGewinnt;
+    private VierGewinntInterface vierGewinnt;
 
-    public MonteCarlo(VierGewinntCore vierGewinnt){
+    public MonteCarlo(VierGewinntInterface vierGewinnt){
         this.vierGewinnt = vierGewinnt;
     }
 
-    public void refreshBoard(VierGewinntCore vierGewinnt){
+    public void refreshBoard(VierGewinntInterface vierGewinnt){
         this.vierGewinnt = vierGewinnt;
     }
 
@@ -23,7 +23,7 @@ public class MonteCarlo implements ArtificialIntelligenceInterface{
 
     public int[] makeNextMove(){
         int player = vierGewinnt.getPlayer();
-        VierGewinntCore simulation = new VierGewinnt();
+        VierGewinntInterface simulation = new VierGewinnt();
         simulation.setPlayer(player);
         simulation.setBoard(copyBoard(vierGewinnt.getBoard()));
 
@@ -31,7 +31,6 @@ public class MonteCarlo implements ArtificialIntelligenceInterface{
         expand(parentNode,0);
 
         int winningMove = getBestMove(parentNode).getIndex();
-        System.out.println();
         int y = vierGewinnt.placeStone(winningMove);
         int[] xy = {winningMove, y};
         return xy;
@@ -51,7 +50,7 @@ public class MonteCarlo implements ArtificialIntelligenceInterface{
 
     private void expand(Node parent,int expansion){
         ++expansion;
-        if(expansion < 20){
+        if(expansion < 40){
 
             int[] moves = getPossibleMoves(parent.getBoard());
 
@@ -103,7 +102,7 @@ public class MonteCarlo implements ArtificialIntelligenceInterface{
     }
 
     private int getRandomWinning(Node node){
-        VierGewinntCore randomGame = new VierGewinnt();
+        VierGewinntInterface randomGame = new VierGewinnt();
         randomGame.setBoard(copyBoard(node.getBoard()));
         randomGame.setPlayer(node.getPlayer());
         int y = randomGame.placeStone(node.getIndex());

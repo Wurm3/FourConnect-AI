@@ -1,13 +1,14 @@
 package gui;
 
 import gamecore.VierGewinnt;
-import gamecore.VierGewinntCore;
+import gamecore.VierGewinntInterface;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -15,26 +16,38 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import montecarlo.ArtificialIntelligenceInterface;
 import montecarlo.MonteCarlo;
+import montecarlo.NeuralNetworkGameConnector;
+import montecarlo.NeuralNetworkSocket;
+import org.apache.log4j.BasicConfigurator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static gui.ArtificalInteligence.MONTECARLO;
+import static gui.ArtificalInteligence.NEURALNETWORK;
+
 public class Main extends Application {
     private static final double height = 500;
-    private VierGewinntCore vierGewinnt;
+    private VierGewinntInterface vierGewinnt;
     private List<List<Rectangle>> rectangleBoard = new ArrayList();
     private Stage primaryStage;
-    private ArtificialIntelligenceInterface artificialPlayer;
     private int[][] oldBoard;
+    private ComboBox comboBox;
+    private ArtificialIntelligenceInterface montecarlo;
+    private ArtificialIntelligenceInterface neuralNetwork;
 
     public static void main(String[] args) {launch(args);}
 
     @Override
     public void start(Stage primaryStage) {
+        BasicConfigurator.configure();
+
         vierGewinnt = new VierGewinnt();
 
-        //Artificial Player
-        artificialPlayer = new MonteCarlo(vierGewinnt);
+
+        montecarlo = new MonteCarlo(vierGewinnt);
+        neuralNetwork = new NeuralNetworkGameConnector(vierGewinnt,"src/main/resources/test.json");
 
         Group root = new Group();
         Scene theScene = new Scene(root);
@@ -63,13 +76,21 @@ public class Main extends Application {
     }
 
     private void addButtons(Group root){
+        Pane comboPane = new Pane();
+        comboPane.setLayoutX(563);
+        comboPane.setLayoutY(0);
+
         Pane nextMovePane = new Pane();
         nextMovePane.setLayoutX(563);
-        nextMovePane.setLayoutY(0);
+        nextMovePane.setLayoutY(30);
 
         Pane backPane = new Pane();
         backPane.setLayoutX(563);
-        backPane.setLayoutY(30);
+        backPane.setLayoutY(60);
+
+        comboBox = new ComboBox();
+        comboBox.getItems().add(MONTECARLO);
+        comboBox.getItems().add(NEURALNETWORK);
 
         Button next_move = new Button("Next Move");
         Button back = new Button("Back");
@@ -86,10 +107,12 @@ public class Main extends Application {
                 oneMoveBack();
             }
         });
+
+        comboPane.getChildren().add(comboBox);
         nextMovePane.getChildren().add(next_move);
         backPane.getChildren().add(back);
 
-        root.getChildren().addAll(nextMovePane, backPane);
+        root.getChildren().addAll(comboPane, nextMovePane, backPane);
     }
 
     public int otherPlayer(int player){
@@ -120,7 +143,7 @@ public class Main extends Application {
 
     private void nextMove(){
         oldBoard = copyBoard(vierGewinnt.getBoard());
-        int[] xy = artificialPlayer.makeNextMove();
+        int[] xy = getCurrentAi().makeNextMove();
         changeField(xy[0],xy[1]);
     }
 
@@ -213,11 +236,23 @@ public class Main extends Application {
                 break;
             case R:
                 vierGewinnt = new VierGewinnt();
-                artificialPlayer.refreshBoard(vierGewinnt);
+                getCurrentAi().refreshBoard(vierGewinnt);
                 setAllRectangles(Color.VIOLET);
                 break;
             default:
                 break;
+        }
+    }
+
+    private ArtificialIntelligenceInterface getCurrentAi(){
+        switch((ArtificalInteligence) comboBox.getValue()){
+            case MONTECARLO:
+                return montecarlo;
+            case NEURALNETWORK:
+                return neuralNetwork;
+            default:
+                return null;
+
         }
     }
 }
