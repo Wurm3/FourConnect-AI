@@ -36,7 +36,7 @@ public class VierGewinnt implements VierGewinntInterface {
 
     public int placeStone(int x) {
         if(x < 0 || x > 6)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Can not place: " + x);
         for(int i = 0; i < 6;++i){
             if(board[x][i] == 0){
                 board[x][i] = player;

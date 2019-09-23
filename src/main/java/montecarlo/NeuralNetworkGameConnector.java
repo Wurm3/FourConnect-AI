@@ -41,37 +41,40 @@ public class NeuralNetworkGameConnector implements ArtificialIntelligenceInterfa
 
         double[] sanatizedInput = new double[6 * 7 * 2 + 1];
 
+        /**
+         * TODO fix that mess
+         */
         boolean allNull = true;
         for (int playerCounter = 1; playerCounter < 3; ++playerCounter) {
-            for (int x = 0; x < input.length; ++x) {
-                for (int y = 0; y < input[x].length; ++y) {
-                    if(playerCounter == 0){
-                        if(player == input[x][y]){
-                            sanatizedInput[playerCounter*x*y] = 1.0;
+            for (int x = 1; x <= input.length; ++x) {
+                for (int y = 1; y <= input[x-1].length; ++y) {
+                    if(playerCounter == 1){
+                        if(player == input[x-1][y-1]){
+                            sanatizedInput[x*y] = 1.0;
                             allNull = false;
-                        }else if(input[x][y] == 0){
-                            sanatizedInput[playerCounter*x*y] = 0.0;
+                        }else if(input[x - 1][y - 1] == 0){
+                            sanatizedInput[x*y] = 0.0;
                         }
                     }else{
-                        if(player != input[x][y] && input[x][y] != 0){
-                            sanatizedInput[playerCounter*x*y] = 1.0;
+                        if(player != input[x - 1][y - 1] && input[x - 1][y - 1] != 0){
+                            sanatizedInput[x*y + 42] = 1.0;
                             allNull = false;
-                        }else if(input[x][y] == 0){
-                            sanatizedInput[playerCounter*x*y] = 0.0;
+                        }else if(input[x - 1][y - 1] == 0){
+                            sanatizedInput[x*y + 42] = 0.0;
                         }
                     }
                 }
             }
         }
         if(allNull){
-            sanatizedInput[sanatizedInput.length-1] = 1;
+            sanatizedInput[0] = 1;
         }else{
-            sanatizedInput[sanatizedInput.length-1] = 0;
+            sanatizedInput[0] = 0;
         }
 
         double[] output = neuralNetwork.getOutput(sanatizedInput, new ForwardPropagation());
 
-        double highest = 0;
+        double highest = -1;
         int index = -1;
 
         for(int i = 0; i < output.length;++i){
@@ -81,11 +84,23 @@ public class NeuralNetworkGameConnector implements ArtificialIntelligenceInterfa
             }
         }
 
-        int y = vierGewinnt.placeStone(index);
-        while(y == -1){
-            placedRandomStone = true;
-            index = placeRandomStone();
+
+        int y;
+        if(index != -1 ){
             y = vierGewinnt.placeStone(index);
+        }else{
+            y = -1;
+        }
+        int randomIndex = 0;
+        while(y == -1){
+            if(randomIndex > 6){
+                return null;
+            }
+            placedRandomStone = true;
+            //index = placeRandomStone();
+            y = vierGewinnt.placeStone(randomIndex);
+            index = randomIndex;
+            ++randomIndex;
         }
         int[] xy = {index, y};
 

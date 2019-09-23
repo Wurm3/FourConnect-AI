@@ -2,10 +2,7 @@ package NeuralNet.learning;
 
 import NeuralNet.NeuralNetwork;
 import NeuralNet.NeuralNetworkConfig;
-import gamecore.VierGewinnt;
-import gamecore.VierGewinntInterface;
 import montecarlo.ArtificialIntelligenceInterface;
-import montecarlo.MonteCarlo;
 import montecarlo.NeuralNetworkGameConnector;
 
 import java.io.IOException;
@@ -13,60 +10,171 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class MinMaxSimpleAlgo implements LearningAlgoInterface {
-    private static final int INPUT_LAYER_SIZE = 6 * 7 * 2 + 1;
-    private static final int HIDDEN_LAYER_COUNT = 3;
-    private static final int HIDDEN_LAYER_SIZE = 3;
+    private static final int INPUT_LAYER_SIZE = 85; //number of tiles
+    private static final int HIDDEN_LAYER_COUNT = 2;
+    private static final int HIDDEN_LAYER_SIZE = 40; // 6 + 7 + 5
     private static final int OUTPUT_LAYER_SIZE = 7;
 
     private NeuralNetwork network1;
-    private NeuralNetwork network2;
+
+    private List<NeuralNetwork> bestNetworks;
+    private NeuralNetwork trainingNetwork;
+
 
     private int gameCount;
 
     public MinMaxSimpleAlgo(int gameCount) {
         network1 = new NeuralNetwork(INPUT_LAYER_SIZE, HIDDEN_LAYER_COUNT, HIDDEN_LAYER_SIZE, OUTPUT_LAYER_SIZE);
-        network2 = new NeuralNetwork(INPUT_LAYER_SIZE, HIDDEN_LAYER_COUNT, HIDDEN_LAYER_SIZE, OUTPUT_LAYER_SIZE);
 
         this.gameCount = gameCount;
     }
 
+    public NeuralNetwork loadExistingNetwork() {
+        try {
 
-    public void startCalculating() {
-        int numberOfThreads = 20;
-        System.out.println("Round,Score");
-        NeuralNetwork best = null;
-        List<NeuralNetwork> neuralNetworks = new ArrayList<>();
-        for (int i = 0; i < numberOfThreads; ++i) {
-            neuralNetworks.add(initializeNeuralNetwork());
+            return NeuralNetworkConfig.loadNeuralNetwork("src/main/resources/test.json");
+        } catch (IOException e) {
+            return null;
         }
+    }
 
-        for (int i = 0; i < 200; ++i) {
-            System.out.print(i + ",");
-            best = runThreadsGetBest(neuralNetworks, numberOfThreads);
 
-            neuralNetworks = new ArrayList<>();
-            neuralNetworks.add(best);
-            for (int j = 0; j < numberOfThreads - 1; ++j) {
-                NeuralNetwork network = best.copyNetwork();
-                network.changeNetwork(0.3);
-                neuralNetworks.add(network);
-            }
+    public void iterateChanges() {
+        trainingNetwork = loadExistingNetwork();
+        //trainingNetwork = initializeNeuralNetwork();
+        bestNetworks = new ArrayList<>();
+        bestNetworks.add(trainingNetwork);
 
-            try {
-                NeuralNetworkConfig.saveNeuralNetwork("src/main/resources/test.json", best);
-            } catch (IOException e) {
-                System.out.println("something");
+        List<NeuralNetwork> neuralNetworks = new ArrayList<>();
+        addMultipleToList(neuralNetworks, trainingNetwork, 10);
+        //addRandomToList(neuralNetworks, 80);
+
+        for (int neuronIndex = 0; neuronIndex < INPUT_LAYER_SIZE; ++neuronIndex) {
+            for (int weightIndex = 0; weightIndex < HIDDEN_LAYER_SIZE; ++weightIndex) {
+                for (NeuralNetwork neuralNetwork : neuralNetworks) {
+                    neuralNetwork.changeWeightOf(0, neuronIndex, weightIndex);
+                }
+                List<TrainingThread> sortedList = runThreadsGetBest(neuralNetworks);
+                if (sortedList.get(sortedList.size() - 1).getScore() > 0.5) {
+                    bestNetworks = new ArrayList<>();
+                    bestNetworks.add(sortedList.get(sortedList.size() - 1).getNeuralNetwork());
+                    saveBest();
+                } else {
+                    neuralNetworks = new ArrayList<>();
+                    addMultipleToList(neuralNetworks, trainingNetwork, 10);
+                    break;
+                }
+
             }
         }
     }
 
-    private NeuralNetwork runThreadsGetBest(List<NeuralNetwork> neuralNetworks, int numberOfThreads) {
+    private void addRandomToList(List<NeuralNetwork> neuralNetworks, int count){
+        for(int i = 0; i < count; ++i){
+            neuralNetworks.add(initializeNeuralNetwork());
+        }
+    }
+
+    private void addMultipleToList(List<NeuralNetwork> neuralNetworks, NeuralNetwork copy, int times) {
+        for (int i = 0; i < times; ++i) {
+            neuralNetworks.add(copy.copyNetwork());
+        }
+    }
+
+    public void startCalculating() {
+        trainingNetwork = loadExistingNetwork();
+        //trainingNetwork = initializeNeuralNetwork();
+        bestNetworks = new ArrayList<>();
+        bestNetworks.add(trainingNetwork);
+
+        double maxLastRounds = -100;
+        int nanCounter = 0;
+        int numberOfThreads = 40;
+        System.out.println("Round,Score");
+
+        List<NeuralNetwork> neuralNetworks = new ArrayList<>();
+        neuralNetworks.add(trainingNetwork);
+        initializeFromNetwork(neuralNetworks,trainingNetwork,numberOfThreads -1);
+
+        double threshold = -1000;
+        for (int i = 0; i < gameCount; ++i) {
+            List<TrainingThread> sortedList = runThreadsGetBest(neuralNetworks);
+            maxLastRounds = maxLastRounds < sortedList.get(sortedList.size() - 1).getScore() ? sortedList.get(sortedList.size() - 1).getScore() : maxLastRounds;
+
+
+            if (sortedList.get(sortedList.size() - 1).getScore() > threshold ) {
+                maxLastRounds = -100;
+                if(nanCounter == 0){
+                    //threshold += 1;
+                }
+                nanCounter = 0;
+                System.out.print(i + "," + sortedList.get(sortedList.size() - 1).getScore());
+
+                trainingNetwork = sortedList.get(sortedList.size() - 1).getNeuralNetwork();
+                bestNetworks = new ArrayList<>();
+                double score;
+                int number = 4;
+                int counter = sortedList.size() - 1;
+                do{
+                    bestNetworks.add(sortedList.get(counter).getNeuralNetwork());
+                    score = counter == 0? 0 : sortedList.get(counter - 1).getScore();
+                    --counter;
+                    --number;
+                }while(counter >= 0 && number > 0);
+                int surrived = (sortedList.size() - counter - 1);
+                System.out.print(";\t" + surrived + " surrived\n");
+
+                saveBest();
+            } else {
+                ++nanCounter;
+                if (nanCounter % 100 == 0) {
+                    System.out.println(i + ", NaN\tMax: " + maxLastRounds);
+                    maxLastRounds = -100;
+                }
+                bestNetworks = new ArrayList<>();
+                bestNetworks.add(trainingNetwork);
+
+            }
+            neuralNetworks = new ArrayList<>();
+            neuralNetworks.addAll(bestNetworks);
+            for (int j = 0; j < numberOfThreads - bestNetworks.size(); j += bestNetworks.size()) {
+
+                for (NeuralNetwork best : bestNetworks) {
+                    NeuralNetwork network = best.copyNetworkAndChange();
+                    network.changeNetwork(0.2);
+                    neuralNetworks.add(network);
+                }
+            }
+        }
+    }
+
+    private void changeWeight(NeuralNetwork network, int layer, int neuronIndex, int weightIndex) {
+        network.changeWeightOf(layer, neuronIndex, weightIndex);
+    }
+
+    private void saveBest() {
+        try {
+            NeuralNetworkConfig.saveNeuralNetwork("src/main/resources/test.json", bestNetworks.get(bestNetworks.size() - 1));
+        } catch (IOException e) {
+            System.out.println("something");
+        }
+    }
+
+    private List<TrainingThread> runThreadsGetBest(List<NeuralNetwork> neuralNetworks) {
         List<TrainingThread> trainingThreads = new ArrayList<>();
-        for (int i = 0; i < numberOfThreads; ++i) {
-            ArtificialIntelligenceInterface ai = new MonteCarlo(null);
-            TrainingThread thread = new TrainingThread(neuralNetworks.get(i), ai);
+        List<ArtificialIntelligenceInterface> ais = new ArrayList<>();
+
+        for(NeuralNetwork network : neuralNetworks){
+            NeuralNetworkGameConnector ai = new NeuralNetworkGameConnector(null);
+            ai.setNeuralNetwork(network);
+            ais.add(ai);
+        }
+
+        for (int i = 0; i < neuralNetworks.size(); ++i) {
+            TrainingThread thread = new TrainingThread(neuralNetworks.get(i), ais,1);
             thread.start();
             trainingThreads.add(thread);
         }
@@ -81,12 +189,18 @@ public class MinMaxSimpleAlgo implements LearningAlgoInterface {
         }
 
         TrainingThread best = trainingThreads.stream().max(Comparator.comparing(TrainingThread::getScore)).orElseThrow(NoSuchElementException::new);
-        System.out.print(best.getScore() + "\n");
-        return best.getNeuralNetwork();
+        List<TrainingThread> sorted = trainingThreads.stream().sorted(Comparator.comparing(TrainingThread::getScore)).collect(Collectors.toList());
+        return sorted;
 
     }
 
     private NeuralNetwork initializeNeuralNetwork() {
         return new NeuralNetwork(INPUT_LAYER_SIZE, HIDDEN_LAYER_COUNT, HIDDEN_LAYER_SIZE, OUTPUT_LAYER_SIZE);
+    }
+
+    private void initializeFromNetwork(List<NeuralNetwork> networks, NeuralNetwork network, int number){
+        for(int i = 0; i < number; ++i){
+            networks.add(network.copyNetworkAndChange());
+        }
     }
 }

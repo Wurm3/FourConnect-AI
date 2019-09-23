@@ -5,6 +5,16 @@ import org.nd4j.shade.jackson.annotation.JsonIgnore;
 public class Neuron {
     private double[] weights;
     private double activation;
+    private double bias;
+
+
+    public double getBias() {
+        return bias;
+    }
+
+    public void setBias(double bias) {
+        this.bias = bias;
+    }
 
     public void setWeights(double[] weights) {
         this.weights = weights;
@@ -14,7 +24,7 @@ public class Neuron {
         return weights;
     }
 
-    public void changeWeight(int index, double weight){
+    public void changeWeight(int index, double weight) {
         weights[index] = weight;
     }
 
@@ -27,18 +37,18 @@ public class Neuron {
     }
 
     @JsonIgnore
-    public double[] getActivationWeight(){
+    public double[] getActivationWeight() {
         double[] activationWeight = new double[weights.length];
+
 
         for(int i = 0; i < weights.length; ++i){
             activationWeight[i] = weights[i] * activation;
         }
-
         return activationWeight;
     }
 
     @Override
-    public Neuron clone(){
+    public Neuron clone() {
         double[] copyWeights = weights.clone();
         Neuron other = new Neuron();
         other.setWeights(copyWeights);

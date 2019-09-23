@@ -15,6 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import montecarlo.ArtificialIntelligenceInterface;
+import montecarlo.LevelOneAlgo;
+import montecarlo.LevelTwoAlgo;
 import montecarlo.MonteCarlo;
 import montecarlo.NeuralNetworkGameConnector;
 import montecarlo.NeuralNetworkSocket;
@@ -26,6 +28,8 @@ import java.util.List;
 
 import static gui.ArtificalInteligence.MONTECARLO;
 import static gui.ArtificalInteligence.NEURALNETWORK;
+import static gui.ArtificalInteligence.LEVELONE;
+import static gui.ArtificalInteligence.LEVELTWO;
 
 public class Main extends Application {
     private static final double height = 500;
@@ -36,6 +40,8 @@ public class Main extends Application {
     private ComboBox comboBox;
     private ArtificialIntelligenceInterface montecarlo;
     private ArtificialIntelligenceInterface neuralNetwork;
+    private ArtificialIntelligenceInterface levelOne;
+    private ArtificialIntelligenceInterface levelTwo;
 
     public static void main(String[] args) {launch(args);}
 
@@ -47,7 +53,9 @@ public class Main extends Application {
 
 
         montecarlo = new MonteCarlo(vierGewinnt);
-        neuralNetwork = new NeuralNetworkGameConnector(vierGewinnt,"src/main/resources/test.json");
+        neuralNetwork = new NeuralNetworkGameConnector(vierGewinnt,"src/main/resources/leveltwo61.json");
+        levelOne = new LevelOneAlgo(vierGewinnt);
+        levelTwo = new LevelTwoAlgo(vierGewinnt);
 
         Group root = new Group();
         Scene theScene = new Scene(root);
@@ -91,6 +99,8 @@ public class Main extends Application {
         comboBox = new ComboBox();
         comboBox.getItems().add(MONTECARLO);
         comboBox.getItems().add(NEURALNETWORK);
+        comboBox.getItems().add(LEVELONE);
+        comboBox.getItems().add(LEVELTWO);
 
         Button next_move = new Button("Next Move");
         Button back = new Button("Back");
@@ -236,7 +246,10 @@ public class Main extends Application {
                 break;
             case R:
                 vierGewinnt = new VierGewinnt();
-                getCurrentAi().refreshBoard(vierGewinnt);
+                neuralNetwork.refreshBoard(vierGewinnt);
+                montecarlo.refreshBoard(vierGewinnt);
+                levelOne.refreshBoard(vierGewinnt);
+                levelTwo.refreshBoard(vierGewinnt);
                 setAllRectangles(Color.VIOLET);
                 break;
             default:
@@ -250,6 +263,10 @@ public class Main extends Application {
                 return montecarlo;
             case NEURALNETWORK:
                 return neuralNetwork;
+            case LEVELONE:
+                return levelOne;
+            case LEVELTWO:
+                return levelTwo;
             default:
                 return null;
 
