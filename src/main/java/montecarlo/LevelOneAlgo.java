@@ -52,7 +52,15 @@ public class LevelOneAlgo implements ArtificialIntelligenceInterface {
     }
 
     protected int makeRandomNextMove() {
-        int y = vierGewinnt.placeStone(nextMove);
+        int y = -1;
+        if(nextMove == -1){
+            nextMove = possibleMoves.get(0);
+        }
+        try{
+            y = vierGewinnt.placeStone(nextMove);
+        }catch(IllegalArgumentException e){
+            System.out.println("meh2");
+        }
         if (y == -1) {
             for (int i : possibleMoves) {
                 y = vierGewinnt.placeStone(i);
@@ -82,12 +90,13 @@ public class LevelOneAlgo implements ArtificialIntelligenceInterface {
     @Override
     public void refreshBoard(VierGewinntInterface vierGewinnt) {
         this.vierGewinnt = vierGewinnt;
+        reshuffle();
     }
 
     public void reshuffle(){
         possibleMoves = new ArrayList<>();
         for (int i = 0; i < 7; ++i) {
-            possibleMoves.add(i);
+            possibleMoves.add(new Integer(i));
         }
         Collections.shuffle(possibleMoves);
     }

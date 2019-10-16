@@ -32,6 +32,9 @@ public class LevelTwoAlgo extends LevelOneAlgo implements ArtificialIntelligence
         if (nextMove != -1) {
             y = vierGewinnt.placeStone(nextMove);
         } else {
+            if(possibleMoves.size() < 7){
+                reshuffle();
+            }
             nextMove = possibleMoves.get(0);
             y = makeRandomNextMove();
         }

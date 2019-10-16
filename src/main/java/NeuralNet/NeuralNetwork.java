@@ -86,15 +86,12 @@ public class NeuralNetwork {
     public void changeNetwork(double mutationRate) {
         for (int i = 0; i < inputLayer.length; ++i) {
             randomizeWeights(inputLayer[i].getWeights(), mutationRate);
-            if(Math.random() <= mutationRate){
-                inputLayer[i].setBias(0);
-            }
         }
 
         for (Neuron[] hiddenLayer : hiddenLayers) {
             for (int i = 0; i < hiddenLayer.length; ++i) {
                 randomizeWeights(hiddenLayer[i].getWeights(), mutationRate);
-                if(Math.random() <= mutationRate) {
+                if (Math.random() / 2 <= mutationRate) {
                     hiddenLayer[i].setBias(0);
                 }
             }
@@ -136,8 +133,8 @@ public class NeuralNetwork {
             for (int neuronIndex = 0; neuronIndex < network.getHiddenLayers()[0].length; ++neuronIndex) {
                 for (int weightIndex = 0; weightIndex < network.getHiddenLayers()[0].length; ++weightIndex) {
                     changeWeightOfNeuron(network.getHiddenLayers()[layer], neuronIndex, weightIndex);
-                    changeBias(hiddenLayers[layer][neuronIndex]);
                 }
+                changeBias(network.getHiddenLayers()[layer],neuronIndex);
 
             }
         }
@@ -145,8 +142,8 @@ public class NeuralNetwork {
         for (int neuronIndex = 0; neuronIndex < network.getHiddenLayers()[0].length; ++neuronIndex) {
             for (int weightIndex = 0; weightIndex < network.getOutputLayer().length; ++weightIndex) {
                 changeWeightOfNeuron(network.getHiddenLayers()[network.getHiddenLayers().length - 1], neuronIndex, weightIndex);
-                changeBias(hiddenLayers[hiddenLayers.length - 1][neuronIndex]);
             }
+            changeBias(network.getHiddenLayers()[hiddenLayers.length - 1],neuronIndex);
         }
 
         return network;
@@ -168,6 +165,11 @@ public class NeuralNetwork {
         Neuron neuron = layer[index];
         double[] weights = neuron.getWeights();
         weights[weightIndex] = weights[weightIndex] + (Math.random() - 0.5);
+        if (weights[weightIndex] > 5.0) {
+            weights[weightIndex] = 5.0;
+        } else if (weights[weightIndex] < -5.0) {
+            weights[weightIndex] = -5;
+        }
     }
 
 
@@ -195,8 +197,9 @@ public class NeuralNetwork {
         this.outputLayer = outputLayer;
     }
 
-    public void changeBias(Neuron neuron){
-        double currentBias = neuron.getBias();
-        neuron.setBias(currentBias + ((Math.random() * 2) - 1));
+    public void changeBias(Neuron[] layer,  int neuronIndex) {
+        double currentBias = layer[neuronIndex].getBias();
+        double biasChange = (Math.random() * 10.0) - 5.0;
+        layer[neuronIndex].setBias(currentBias + biasChange);
     }
 }

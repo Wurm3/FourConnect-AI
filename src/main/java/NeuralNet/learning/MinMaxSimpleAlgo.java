@@ -3,6 +3,8 @@ package NeuralNet.learning;
 import NeuralNet.NeuralNetwork;
 import NeuralNet.NeuralNetworkConfig;
 import montecarlo.ArtificialIntelligenceInterface;
+import montecarlo.LevelTwoAlgo;
+import montecarlo.MonteCarlo;
 import montecarlo.NeuralNetworkGameConnector;
 
 import java.io.IOException;
@@ -15,8 +17,9 @@ import java.util.stream.Collectors;
 public class MinMaxSimpleAlgo implements LearningAlgoInterface {
     private static final int INPUT_LAYER_SIZE = 85; //number of tiles
     private static final int HIDDEN_LAYER_COUNT = 2;
-    private static final int HIDDEN_LAYER_SIZE = 40; // 6 + 7 + 5
+    private static final int HIDDEN_LAYER_SIZE = 60; // 6 + 7 + 5
     private static final int OUTPUT_LAYER_SIZE = 7;
+    private static final int numberOfThreads = 40;
 
     private NeuralNetwork network1;
 
@@ -72,8 +75,8 @@ public class MinMaxSimpleAlgo implements LearningAlgoInterface {
         }
     }
 
-    private void addRandomToList(List<NeuralNetwork> neuralNetworks, int count){
-        for(int i = 0; i < count; ++i){
+    private void addRandomToList(List<NeuralNetwork> neuralNetworks, int count) {
+        for (int i = 0; i < count; ++i) {
             neuralNetworks.add(initializeNeuralNetwork());
         }
     }
@@ -92,23 +95,20 @@ public class MinMaxSimpleAlgo implements LearningAlgoInterface {
 
         double maxLastRounds = -100;
         int nanCounter = 0;
-        int numberOfThreads = 40;
         System.out.println("Round,Score");
 
         List<NeuralNetwork> neuralNetworks = new ArrayList<>();
         neuralNetworks.add(trainingNetwork);
-        initializeFromNetwork(neuralNetworks,trainingNetwork,numberOfThreads -1);
-
-        double threshold = -1000;
+        double threshold = 5;
         for (int i = 0; i < gameCount; ++i) {
             List<TrainingThread> sortedList = runThreadsGetBest(neuralNetworks);
             maxLastRounds = maxLastRounds < sortedList.get(sortedList.size() - 1).getScore() ? sortedList.get(sortedList.size() - 1).getScore() : maxLastRounds;
 
 
-            if (sortedList.get(sortedList.size() - 1).getScore() > threshold ) {
+            if (sortedList.get(sortedList.size() - 1).getScore() > threshold) {
                 maxLastRounds = -100;
-                if(nanCounter == 0){
-                    //threshold += 1;
+                if (nanCounter == 0) {
+                    threshold += 0.1;
                 }
                 nanCounter = 0;
                 System.out.print(i + "," + sortedList.get(sortedList.size() - 1).getScore());
@@ -118,19 +118,19 @@ public class MinMaxSimpleAlgo implements LearningAlgoInterface {
                 double score;
                 int number = 4;
                 int counter = sortedList.size() - 1;
-                do{
+                do {
                     bestNetworks.add(sortedList.get(counter).getNeuralNetwork());
-                    score = counter == 0? 0 : sortedList.get(counter - 1).getScore();
+                    score = counter == 0 ? 0 : sortedList.get(counter - 1).getScore();
                     --counter;
                     --number;
-                }while(counter >= 0 && number > 0);
+                } while (counter >= 0 && number > 0 && score > threshold - 5);
                 int surrived = (sortedList.size() - counter - 1);
                 System.out.print(";\t" + surrived + " surrived\n");
 
                 saveBest();
             } else {
                 ++nanCounter;
-                if (nanCounter % 100 == 0) {
+                if (nanCounter % 50 == 0) {
                     System.out.println(i + ", NaN\tMax: " + maxLastRounds);
                     maxLastRounds = -100;
                 }
@@ -144,7 +144,7 @@ public class MinMaxSimpleAlgo implements LearningAlgoInterface {
 
                 for (NeuralNetwork best : bestNetworks) {
                     NeuralNetwork network = best.copyNetworkAndChange();
-                    network.changeNetwork(0.2);
+                    network.changeNetwork(0.3);
                     neuralNetworks.add(network);
                 }
             }
@@ -165,16 +165,21 @@ public class MinMaxSimpleAlgo implements LearningAlgoInterface {
 
     private List<TrainingThread> runThreadsGetBest(List<NeuralNetwork> neuralNetworks) {
         List<TrainingThread> trainingThreads = new ArrayList<>();
-        List<ArtificialIntelligenceInterface> ais = new ArrayList<>();
 
-        for(NeuralNetwork network : neuralNetworks){
-            NeuralNetworkGameConnector ai = new NeuralNetworkGameConnector(null);
-            ai.setNeuralNetwork(network);
-            ais.add(ai);
+        List<List<ArtificialIntelligenceInterface>> aiss = new ArrayList<>();
+        for (int j = 0; j < neuralNetworks.size(); ++j) {
+            List<ArtificialIntelligenceInterface> ais = new ArrayList<>();
+            for (int i = 0; i < 10; ++i) {//(NeuralNetwork network : neuralNetworks){
+                //NeuralNetworkGameConnector ai = new NeuralNetworkGameConnector(null);
+                ArtificialIntelligenceInterface ai = new LevelTwoAlgo(null);
+                //ai.setNeuralNetwork(network);
+                ais.add(ai);
+            }
+            aiss.add(ais);
         }
 
         for (int i = 0; i < neuralNetworks.size(); ++i) {
-            TrainingThread thread = new TrainingThread(neuralNetworks.get(i), ais,1);
+            TrainingThread thread = new TrainingThread(neuralNetworks.get(i), aiss.get(i), 1);
             thread.start();
             trainingThreads.add(thread);
         }
@@ -198,8 +203,8 @@ public class MinMaxSimpleAlgo implements LearningAlgoInterface {
         return new NeuralNetwork(INPUT_LAYER_SIZE, HIDDEN_LAYER_COUNT, HIDDEN_LAYER_SIZE, OUTPUT_LAYER_SIZE);
     }
 
-    private void initializeFromNetwork(List<NeuralNetwork> networks, NeuralNetwork network, int number){
-        for(int i = 0; i < number; ++i){
+    private void initializeFromNetwork(List<NeuralNetwork> networks, NeuralNetwork network, int number) {
+        for (int i = 0; i < number; ++i) {
             networks.add(network.copyNetworkAndChange());
         }
     }

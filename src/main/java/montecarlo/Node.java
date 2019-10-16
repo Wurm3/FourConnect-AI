@@ -1,11 +1,14 @@
 package montecarlo;
 
+import gamecore.VierGewinnt;
+import gamecore.VierGewinntInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private final float winningWeight = 0.8f;
-    private final float loosingWeight = 1;
+    private final float winningWeight = 0.8f;//0.8
+    private final float loosingWeight = 1.2f;//1.2
     private final float drawWeight = 0.4f;
 
     private int index;
@@ -18,15 +21,17 @@ public class Node {
     private int player;
 
 
-    public Node(int index,int player,int[][] boardState){
+    public Node(int index,int player,int[][] boardState,Node parent){
         this.index = index;
         this.boardState = boardState;
         children = new ArrayList<>();
         this.player = player;
+        this.parent = parent;
 
         winnings = 0;
         loosings = 0;
         draws = 0;
+
     }
 
     public void setParent(Node parent){
@@ -51,7 +56,6 @@ public class Node {
     public void addWinnings(int winnings){this.winnings += winnings;}
     public void addLoosings(int loosings){this.loosings += loosings;}
     public void addDraws(int draws){this.draws += draws;}
-
     public int getWinnings(){return winnings;}
     public int getLoosings(){return loosings;}
     public int getDraws(){return draws;}
@@ -64,7 +68,7 @@ public class Node {
 
     public double getValue(){
         if(loosings + draws == 0){
-            return winnings * winningWeight * 10;
+            return Integer.MAX_VALUE; //winnings * winningWeight * 10;
         }
         return (winningWeight * winnings) / ((loosingWeight * loosings) + (drawWeight * draws));
     }
@@ -102,6 +106,5 @@ public class Node {
             return false;
         return true;
     }
-
 
 }
